@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} Events {% endblock %}
+{% block header_title %} {{subtitle}} {% endblock %}
+{% block content %}
+<div class="row">
+    {% for event in events %}
+        <div class="col-md-4 col-lg-3 mb-2">
+            <div class="card">
+                <img src="{{ event.image_url }}" class="card-img-top" style="height: 300px;" alt="Event Image">
+                <div class="card-body">
+                    <h5 class="card-title">Nombre: </h5>
+                    <p class="card-text">{{ event.nombre }}</p>
+                    <h5 class="card-title">Fecha: </h5>
+                    <p class="card-text">{{ event.fechaInicio }}</p>
+                    <h5 class="card-title">Precio: </h5>
+                    <p class="card-text">{{ event.precio }}</p>
+                    <h5 class="card-title">Descripción: </h5>
+                    <p class="card-text">{{ event.descripcion }}</p>
+                    <div class="card-title">
+                        <a class="btn bg-primary text-white" href="{% url 'show_event' id=event.id %}">More information</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

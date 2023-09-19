@@ -9,7 +9,7 @@ class Evento(models.Model):
     fechaFin = models.DateField()
     organizador = models.ForeignKey(User, on_delete=models.CASCADE)
     descripcion = models.TextField()
-    imagenes = models.ImageField(upload_to='event_images/')
+    image_url = models.URLField()
     videos = models.URLField()
     precio = models.FloatField()
     capacidad = models.IntegerField()
@@ -19,7 +19,7 @@ class Evento(models.Model):
     esRecurrente = models.BooleanField()
     reservas = models.ManyToManyField(User, related_name='reservas')
     calificacion = models.FloatField()
-    comentarios = models.ManyToManyField(User, through='Comentario')
+    # comentarios = models.ManyToManyField(User, through='Comentario')
     esDestacado = models.BooleanField()
 
     def actualizarEvento(self):
