@@ -16,6 +16,7 @@
               <p class="card-text">Type: {{event.name}}</p>
               
               <a class="btn bg-primary text-white" href="{% url 'events_index' %}">Go back</a>
+              <a href="{% url 'delete_event' event.id %}" onclick="return confirm('¿Estás seguro de que deseas eliminar este evento?')">Eliminar</a>
         </div>
       </div>
     </div>
