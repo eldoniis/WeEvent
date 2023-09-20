@@ -1,11 +1,11 @@
 from django.urls import path, include
-from .views import *
+from pagina import views as WeViews
 from .models import *
 
 urlpatterns = [
-    path('',HomePage.as_view(),name='home'),
-    path('events/',EventIndexView.as_view(),name='events_index'),
-    path('events/<int:id>',EventShowView.as_view(),name='show_event'),
-    path('create_event/', CreateEventView.as_view(), name='create_event'),
-    path('delete_event/<int:id>/', DeleteEventView.as_view(), name='delete_event'),
+    path('',WeViews.HomePage,name='home'),
+    path('events/',WeViews.EventIndexView,name='events_index'),
+    path('events/<int:id>',WeViews.EventShowView,name='show_event'),
+    path('create_event/', WeViews.CreateEventView, name='create_event'),
+    path('delete_event/<int:id>/', WeViews.DeleteEventView, name='delete_event'),
 ]

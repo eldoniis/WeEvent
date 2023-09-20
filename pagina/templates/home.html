@@ -60,24 +60,19 @@
                 <div class="event-container">
                     <h2>Próximos Eventos</h2>
                     {% for event in events %}
-                    <div class="event-box">
-                        
+                    <div class="event-box">   
                         <div class="event-row">
-                            
                             <div class="event">
                                 <h3>{{ event.nombre }}</h3>
-                                <img src="{{ event.image_url }}" alt="Evento 1" class="img-fluid" >
-                                
+                                <a href="{% url 'show_event' id=event.id %}">
+                                    <img src="{{ event.image_url }}" alt="Evento 1" class="img-fluid" >
+                                </a>
                             </div>
                         </div>
                         
                     </div>
                     {% endfor %}
-                       
-
                 </div>
-            
-        </div>
-          
+        </div>   
 </body>
 {% endblock %}
