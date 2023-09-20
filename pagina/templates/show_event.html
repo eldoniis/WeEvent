@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %} {{event.name}} info {% endblock %}
+{% block header_title %} {{subtitle}} {% endblock %}
+{% block content %}
+<div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{ event.image_url }}" class="card-img-top"  alt="Event Image">
+
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h4 class="card-title">
+             {{event.name}}
+          </h4>
+              <p class="card-text">Type: {{event.name}}</p>
+              
+              <a class="btn bg-primary text-white" href="{% url 'events_index' %}">Go back</a>
+              <a href="{% url 'delete_event' event.id %}" onclick="return confirm('¿Estás seguro de que deseas eliminar este evento?')">Eliminar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
