@@ -11,7 +11,11 @@ from .forms import *
 def HomePage(request):
     template_name = 'home.html'
 
-    return render(request, template_name)
+    viewData = {}
+    viewData["title"] = "Title of the view"
+    viewData["subtitle"] =  "Subtitle of the view"
+    viewData["events"] = Evento.objects.all()
+    return render(request, template_name, viewData)
 
 @login_required
 def EventIndexView(request):
@@ -23,7 +27,8 @@ def EventIndexView(request):
     viewData["events"] = Evento.objects.all()
 
     return render(request, template_name, viewData)
-    
+
+@login_required
 def EventShowView(request,id,):
     template_name = 'show_event.html'
 
@@ -33,19 +38,27 @@ def EventShowView(request,id,):
     viewData["event"] = get_object_or_404(Evento,pk=id)
         
     return render(request, template_name, viewData)
-    
+
+@login_required
 def CreateEventView(request):
     template_name = 'create_event.html'
 
-    form = EventoForm(request.POST)
-    print(form.is_valid())
-    if form.is_valid():
-        evento = form.save()
-        return redirect('show_event', id=evento.id)
-        
+    if request.method == 'POST':
+        form = EventoForm(request.POST)
+
+        if form.is_valid():
+            # El formulario es válido, guarda el evento y redirige a la página de detalles
+            evento = form.save()
+            return redirect('show_event', id=evento.id)
+        else:
+            # El formulario no es válido, muestra los errores en el formulario
+            print(form.errors)
+    else:
+        form = EventoForm()
     
     return render(request, template_name, {'form': form})
-
+        
+@login_required
 def DeleteEventView(request,id):
     evento = get_object_or_404(Evento, id=id)
     evento.delete()
