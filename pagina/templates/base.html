@@ -5,7 +5,8 @@
   <meta charset="utf-8" /> 
   <meta name="viewport" content="width=device-width, initial-scale=1" /> 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" /> 
-  <title>{% block title %}'WeEvent'{% endblock %}</title> 
+  <title>{% block title %}'WeEvent'{% endblock %}</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head> 
 <body> 
   <!-- header --> 
@@ -19,7 +20,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'events_index' %}">Eventos</a>
+            <a class="nav-link" aria-current="page" href="{% url 'events_index' %}">Eventos</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true" href="#">Comunidad</a>
@@ -35,7 +36,16 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
             {% if user.is_authenticated %}
-            <a class="nav-link" href="{% url 'logoutaccount' %}"><b>Logout ({{ user.username }})</b></a>
+            <div class="dropdown">
+              <button onclick="myFunction()" class="dropbtn">
+                <i class="material-icons">person</i>
+              </button>
+              <div class="dropdown-content" id="myDropdown">
+                <a class="nav-link" href=""></a>
+                <a class="nav-link" href="{% url 'logoutaccount' %}"><b>Logout</b></a>
+              </div>
+            </div>
+            <a class="nav-link" href="{% url 'home' %}"><i class="material-icons">person</i></a>
             {% else %}
             <a class="nav-link" href="{% url 'loginaccount' %}"><b>Login</b></a>
             <a class="nav-link" href="{% url 'signupaccount' %}"><b>Sign Up</b></a>
@@ -47,7 +57,7 @@
  
   <header class="masthead bg-primary text-white text-center py-4"> 
     <div class="container d-flex align-items-center flex-column"> 
-      <h2>{% block header_title %}'Eventos que te pueden gustar'{% endblock %}</h2> 
+      <h2>{% block header_title %}'Eventos que te pueden gustar'{% endblock %}</h2>
     </div> 
   </header> 
   <!-- header --> 

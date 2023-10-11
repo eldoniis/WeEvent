@@ -23,18 +23,18 @@ def EventIndexView(request):
 
     viewData = {}
     viewData["title"] = "Title of the view"
-    viewData["subtitle"] =  "Subtitle of the view"
+    viewData["subtitle"] =  "Eventos"
     viewData["events"] = Evento.objects.all()
 
     return render(request, template_name, viewData)
 
 @login_required
-def EventShowView(request,id,):
+def EventShowView(request,id):
     template_name = 'show_event.html'
 
     viewData = {}
     viewData["title"] = "Title of the view"
-    viewData["subtitle"] =  "Subtitle of the view"
+    viewData["subtitle"] =  "Info Eventos"
     viewData["event"] = get_object_or_404(Evento,pk=id)
         
     return render(request, template_name, viewData)

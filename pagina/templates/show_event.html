@@ -13,7 +13,14 @@
           <h4 class="card-title">
              {{event.name}}
           </h4>
-              <p class="card-text">Type: {{event.name}}</p>
+              <p class="card-text">Nombre: {{event.nombre}}</p>
+              <p class="card-text">Ubicacion: {{event.ubicacion}}</p>
+              <p class="card-text">Inicia: {{event.fechaInicio}}</p>
+              <p class="card-text">Termina: {{event.fechaFin}}</p>
+              <p class="card-text">Descripción: {{event.descripcion}}</p>
+              <p class="card-text">Precio: {{event.precio}}</p>
+              <p class="card-text">Capacidad: {{event.capacidad}}</p>
+              <p class="card-text">Asistencia: {{event.asistencia}}</p>
               
               <a class="btn bg-primary text-white" href="{% url 'events_index' %}">Go back</a>
               <a href="{% url 'delete_event' event.id %}" onclick="return confirm('¿Estás seguro de que deseas eliminar este evento?')">Eliminar</a>
