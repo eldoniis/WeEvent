@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Evento(models.Model):
     nombre = models.CharField(max_length=255)
     ubicacion = models.CharField(max_length=255)
-    fechalnicio = models.DateField()
+    fechaInicio = models.DateField()
     fechaFin = models.DateField()
     organizador = models.ForeignKey(User, on_delete=models.CASCADE)
     descripcion = models.TextField()

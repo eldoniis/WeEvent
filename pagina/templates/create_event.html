@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-
+{% block title %} Crear Evento {% endblock %}
+{% block header_title %} Crear un nuevo evento {% endblock %}
 {% block content %}
-<h2>Crear un nuevo evento</h2>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Crear evento</button>
+    <button type="submit" class="btn btn-primary">Crear Evento</button>
 </form>
 {% endblock %}
