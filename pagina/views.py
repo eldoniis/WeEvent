@@ -18,6 +18,15 @@ def HomePage(request):
     return render(request, template_name, viewData)
 
 @login_required
+def ShowProfile(request):
+    template_name = 'profile.html'
+
+    viewData = {}
+    viewData["users"] = User.objects.all()
+
+    return render(request,template_name, viewData)
+
+@login_required
 def EventIndexView(request):
     template_name = 'events_index.html'
 
@@ -63,3 +72,9 @@ def DeleteEventView(request,id):
     evento = get_object_or_404(Evento, id=id)
     evento.delete()
     return redirect('events_index')
+
+def DeleteUser(request,id):
+    user = get_object_or_404(User, id=id)
+    user.delete()
+    
+    return redirect('home')
