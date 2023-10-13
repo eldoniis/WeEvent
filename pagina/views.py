@@ -22,7 +22,7 @@ def ShowProfile(request):
     template_name = 'profile.html'
 
     viewData = {}
-    viewData["users"] = User.objects.all()
+    viewData["subtitle"] =  "User Profile"
 
     return render(request,template_name, viewData)
 
@@ -73,8 +73,17 @@ def DeleteEventView(request,id):
     evento.delete()
     return redirect('events_index')
 
+@login_required
 def DeleteUser(request,id):
     user = get_object_or_404(User, id=id)
     user.delete()
     
     return redirect('home')
+
+@login_required
+def Support(request):
+    template_name = 'support.html'
+    viewData = {}
+    viewData["subtitle"] =  "User Support"
+
+    return render(request,template_name,viewData)

@@ -9,5 +9,6 @@ urlpatterns = [
     path('create_event/', WeViews.CreateEventView, name='create_event'),
     path('delete_event/<int:id>/', WeViews.DeleteEventView, name='delete_event'),
     path('profile/', WeViews.ShowProfile, name='profile'),
-    path('delete_user/<int:id>/', WeViews.DeleteUser, name='delete_user')
+    path('delete_user/<int:id>/', WeViews.DeleteUser, name='delete_user'),
+    path('support/',WeViews.Support, name='support'),
 ]
