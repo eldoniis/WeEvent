@@ -7,21 +7,34 @@
         <div class="col-md-4 col-lg-3 mb-2">
             <div class="card">
                 <img src="{{ event.image_url }}" class="card-img-top" style="height: 300px;" alt="Event Image">
-                <div class="card-body">
-                    <h5 class="card-title">Nombre: </h5>
-                    <p class="card-text">{{ event.nombre }}</p>
-                    <h5 class="card-title">Fecha: </h5>
-                    <p class="card-text">{{ event.fechaInicio }}</p>
-                    <h5 class="card-title">Precio: </h5>
-                    <p class="card-text">{{ event.precio }}</p>
-                    <h5 class="card-title">Descripción: </h5>
-                    <p class="card-text">{{ event.descripcion }}</p>
-                    <div class="card-title">
-                        <a class="btn bg-primary text-white" href="{% url 'show_event' id=event.id %}">More informacion</a>
+                <div>
+                    <button type="button" class="mt-5 mx-5 btn btn-primary" data-bs-toggle="modal" data-bs-target="#infoModal{{lugar.id}}{{loop.index}}">Mas Info</button>
+                        <div class="modal fade" id="infoModal{{lugar.id}}{{loop.index}}" tabindex="-1" aria-hidden="true" aria-labelledby="infoModalLabel{{lugar.id}}{{loop.index}}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="card-text">Nombre: {{event.nombre}}</p>
+                                        <p class="card-text">Ubicacion: {{event.ubicacion}}</p>
+                                        <p class="card-text">Inicia: {{event.fechaInicio}}</p>
+                                        <p class="card-text">Termina: {{event.fechaFin}}</p>
+                                        <p class="card-text">Descripción: {{event.descripcion}}</p>
+                                        <p class="card-text">Precio: {{event.precio}}</p>
+                                        <p class="card-text">Capacidad: {{event.capacidad}}</p>
+                                        <p class="card-text">Asistencia: {{event.asistencia}}</p>
+                                    <div>
+                                        <a class="mt-5 mx-5 btn btn-primary" href="{% url 'delete_event' event.id %}" onclick="return confirm('¿Estás seguro de que deseas eliminar este evento?')">Eliminar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     {% endfor %}
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
 {% endblock %}

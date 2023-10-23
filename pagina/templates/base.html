@@ -57,9 +57,11 @@
           <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true" href="#">Ofertas</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link " href="{% url 'create_event' %}">Crear Eventos</a>
-          </li>
+          {% if user.role == 'Owner Event' or user.role == 'Owner Event and Participant' %}
+            <li class="nav-item">
+              <a class="nav-link " href="{% url 'create_event' %}">Crear Eventos</a>
+            </li>
+          {% endif %}
         </ul>
       </div>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
