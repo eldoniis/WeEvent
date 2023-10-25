@@ -58,7 +58,7 @@ def CreateEventView(request):
         if form.is_valid():
             # El formulario es válido, guarda el evento y redirige a la página de detalles
             evento = form.save()
-            return redirect('event_index', id=evento.id)
+            return redirect('events_index')
         else:
             # El formulario no es válido, muestra los errores en el formulario
             print(form.errors)
