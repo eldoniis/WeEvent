@@ -50,28 +50,75 @@
     </style>
 </head>
 <body>
-    <div class="container" style="position: relative;">
-        <div class="event-container">
-            <h2>Próximos Eventos</h2>
-            <div class="event-box">
-                {% for event in events %}
-                {% if forloop.counter0|divisibleby:2 %}
-                <div class="event-row">
-                {% endif %}
-                    <div class="event">
-                        <h3>{{ event.nombre }}</h3>
-                        <a href="{% url 'show_event' id=event.id %}">
-                            <img src="{{ event.image_url }}" alt="Evento 1" class="img-fluid" width="300">
-                        </a>
-                    </div>
-                {% if forloop.counter|divisibleby:2 or forloop.last %}
+    <div class="row">
+        <div class="col">
+            <div class="card text-center">
+                <div class="card-header">
+                  <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="true" href="#">Map</a>
+                    </li>
+                    <li class="nav-item">
+                      <button class="nav-link">Calendar</button>
+                    </li>
+                  </ul>
                 </div>
-                {% endif %}
+                <div class="card-body">
+                </div>
+              </div>
+        </div>
+        <div class="col">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for event in events %}
+                    {% if event.ubicacion == user.location %}
+                    <div class="col">
+                        <div class="card text-center" style="max-width: 200px; max-height: 100%;">
+                            <div class="card-body">
+                              <h5 class="card-title">{{event.nombre}}</h5>
+                            </div>
+                            <img class="card-img-bottom" type="button" data-bs-toggle="modal" data-bs-target="#infoModal{{event.id}}{{loop.index}}" src="{{ event.image_url }}" alt="Event Image">
+                        </div>
+                    </div>
+                    <div class="modal fade" id="infoModal{{event.id}}{{loop.index}}" tabindex="-1" aria-hidden="true" aria-labelledby="infoModalLabel{{event.id}}{{loop.index}}">
+                        <div class="modal-lg modal-dialog modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <b>{{event.asistencia}}/{{event.capacidad}}</b>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-2">  
+                                                <img src="{{ event.image_url }}" style="height: 300px; max-width: 350px;" alt="Event Image">
+                                            </div>
+                                            <br>
+                                            <div class="col-md-6 ms-auto">
+                                                <p class="card-text"><b>Nombre: </b>{{event.nombre}}</p>
+                                                <p class="card-text"><b>Descripcion: </b>{{event.descripcion}}</p>
+                                                <p class="card-text"><b>Fecha de Inicio: </b>{{event.fechaInicio}}</p>
+                                                <p class="card-text"><b>Fecha de Fin: </b>{{event.fechaFin}}</p>
+                                                <p class="card-text"><b>Ubicacion: </b>{{event.ubicacion}}</p>
+                                                <p class="card-text"><b>Precio: </b>$ {{event.precio}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="mt-5 mx-5 btn btn-primary" href="{% url 'delete_event' event.id %}" onclick="return confirm('¿Estás seguro de que deseas eliminar este evento?')">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="col">
+                        <h1>No hay eventos</h1>
+                    </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
-        
-    </div>          
-          
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
 </body>
 {% endblock %}

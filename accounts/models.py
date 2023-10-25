@@ -29,6 +29,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255, blank=True, default='', unique=True)
     email = models.EmailField(blank=True, default='')
     role = models.CharField(max_length=255, choices=ROLE, blank=True, default='')
+    location = models.CharField(max_length=255, blank=True, default='')
     age = models.CharField(max_length=255, blank=True, default='')
 
     is_active = models.BooleanField(default=True)
@@ -44,7 +45,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = 'email'
     ROLE_FIELD = 'role'
     AGE_FIELD = 'age'
-    REQUIRED_FIELDS = [EMAIL_FIELD, ROLE_FIELD, AGE_FIELD]
+    LOCATION_FIELD = 'location'
+    REQUIRED_FIELDS = [EMAIL_FIELD, ROLE_FIELD, AGE_FIELD, LOCATION_FIELD]
 
     class Meta:
         verbose_name = 'User'
