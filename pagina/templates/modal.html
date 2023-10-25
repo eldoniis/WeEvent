@@ -1,0 +1,57 @@
+<div class="modal fade" id="infoModal{{event.id}}{{loop.index}}" tabindex="-1" aria-hidden="true" aria-labelledby="infoModalLabel{{event.id}}{{loop.index}}">
+    <div class="modal-lg modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <b>{{event.cantidad_asistencia}}/{{event.capacidad}}</b>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2">  
+                            <img src="{{ event.image_url }}" style="height: 300px; max-width: 350px;" alt="Event Image">
+                        </div>
+                        <br>
+                        <div class="col-md-6 ms-auto">
+                            <p class="card-text"><b>Nombre: </b>{{event.nombre}}</p>
+                            <p class="card-text"><b>Descripcion: </b>{{event.descripcion}}</p>
+                            <p class="card-text"><b>Fecha de Inicio: </b>{{event.fechaInicio}}</p>
+                            <p class="card-text"><b>Fecha de Fin: </b>{{event.fechaFin}}</p>
+                            <p class="card-text"><b>Ubicacion: </b>{{event.ubicacion}}</p>
+                            <p class="card-text"><b>Precio: </b>$ {{event.precio}}</p>
+                            <a class="btn bg-warning text-white" href="{% url 'asistencia' id=event.id %}">Confirmar asistencia</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="row">
+                    {% for comentario in comentarios %}
+                        {% if comentario.evento == event %}
+                            <div class="mt-4 mb-2 border border-opacity-10 rounded p-1">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h5>{{ comentario.usuario.username }}</h5>
+                                    </div>
+                                    <div>
+                                        <span class="text-end" style="font-size: 12px;">{{ comentario.fecha }}</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    {{ comentario.texto }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="mt-5 btn">
+                    <b>{{event.cantidad_likes}}</b>
+                    <a class="btn" href="{% url 'dar_like' id=event.id %}"><i class="material-icons"  style="color: red; font-size:36px">favorite</i></a>
+                    <a class="btn" href="{% url 'delete_event' event.id %}" onclick="return confirm('¿Estás seguro de que deseas eliminar este evento?')"><i class="material-icons"  style="color: gray; font-size:36px">delete</i></a>
+                </div>            
+            </div>
+        </div>
+    </div>
+</div>

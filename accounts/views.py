@@ -53,7 +53,7 @@ def InterestCategories(request,name):
         if form.is_valid():
             categorias_interes = form.cleaned_data.get('CategoriaInteres')
             user = User.objects.get(username = name)
-            user.CategoriaInteres.append(categorias_interes)  # Utiliza el método set() para establecer las categorías
+            user.CategoriaInteres.extend(categorias_interes) 
             user.save()
             return redirect('home')
     else:

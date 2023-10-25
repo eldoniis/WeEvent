@@ -12,7 +12,10 @@
                         <h4>Role: {{ user.role }}</h4><br>
                         <h4>Age: {{ user.age }}</h4><br>
                         <h4>City: {{ user.location }}</h4><br>
-                        <h4>Categories: {{ user.CategoriaInteres }}</h4><br>
+                        <h4>Categories: </h4>
+                        {% for categories in user.CategoriaInteres %}
+                            <h4>{{ categories }}</h4><br>
+                        {% endfor %}
                     </p>
                 </div>
             </div>

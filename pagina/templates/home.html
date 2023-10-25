@@ -64,54 +64,29 @@
                   </ul>
                 </div>
                 <div class="card-body">
+                    {{map|safe}}
                 </div>
               </div>
         </div>
         <div class="col">
+            <h2 class="text-center">Eventos Recomendados</h2>
+            <br>
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 {% if events %}
                     {% for event in events %}
-                            {% if event.ubicacion == user.location %}
+                        {% for category in user.CategoriaInteres %}
+                            {% if category == event.categorias %}
                                 <div class="col">
                                     <div class="card text-center" style="max-width: auto; max-height: 100%;">
                                         <div class="card-body">
-                                        <h2 class="card-title">{{event.nombre}}</h2>
+                                        <h4 class="card-title">{{event.nombre}}</h4>
                                         </div>
                                         <img class="card-img-bottom" type="button" data-bs-toggle="modal" data-bs-target="#infoModal{{event.id}}{{loop.index}}" src="{{ event.image_url }}" alt="Event Image">
                                     </div>
                                 </div>
-                                <div class="modal fade" id="infoModal{{event.id}}{{loop.index}}" tabindex="-1" aria-hidden="true" aria-labelledby="infoModalLabel{{event.id}}{{loop.index}}">
-                                    <div class="modal-lg modal-dialog modal-dialog-scrollable">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <b>{{event.asistencia}}/{{event.capacidad}}</b>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="container-fluid">
-                                                    <div class="row">
-                                                        <div class="col-md-2">  
-                                                            <img src="{{ event.image_url }}" style="height: 300px; max-width: 350px;" alt="Event Image">
-                                                        </div>
-                                                        <br>
-                                                        <div class="col-md-6 ms-auto">
-                                                            <p class="card-text"><b>Nombre: </b>{{event.nombre}}</p>
-                                                            <p class="card-text"><b>Descripcion: </b>{{event.descripcion}}</p>
-                                                            <p class="card-text"><b>Fecha de Inicio: </b>{{event.fechaInicio}}</p>
-                                                            <p class="card-text"><b>Fecha de Fin: </b>{{event.fechaFin}}</p>
-                                                            <p class="card-text"><b>Ubicacion: </b>{{event.ubicacion}}</p>
-                                                            <p class="card-text"><b>Precio: </b>$ {{event.precio}}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a class="mt-5 mx-5 btn btn-primary" href="{% url 'delete_event' event.id %}" onclick="return confirm('¿Estás seguro de que deseas eliminar este evento?')">Eliminar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% include 'modal.html' %}
                             {% endif %}
+                        {% endfor %}
                     {% endfor %}
                 {% else %}
                     <div class="col">

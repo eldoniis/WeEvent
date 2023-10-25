@@ -1,11 +1,45 @@
 from django import forms
-from .models import Evento
-from accounts.models import User   
+from .models import Evento, Comentario
+ 
+class ComentarioForm(forms.ModelForm):
+
+    class Meta:
+        model= Comentario
+        fields = (
+            'texto',
+            )
+
+    def init(self, args, **kwargs):
+        super(ComentarioForm, self).init(args, **kwargs)
+
+        # Campos obligatorios y opcionales
+        self.fields['texto'].required = False
+        self.fields['texto'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Introduzca su comentario'
+        })
 
 class EventoForm(forms.ModelForm):
     class Meta:
         model = Evento
-        fields = '__all__'
+        fields = (
+            'nombre',
+            'ubicacion',
+            'fechaInicio',
+            'fechaFin',
+            'organizador',
+            'descripcion',
+            'image_url',
+            'videos',
+            'precio',
+            'capacidad',
+            'categorias',
+            'etiquetas',
+            'esRecurrente',
+            'reservas',
+            'esDestacado'
+            )
+
 
     def __init__(self, *args, **kwargs):
         super(EventoForm, self).__init__(*args, **kwargs)
@@ -21,12 +55,10 @@ class EventoForm(forms.ModelForm):
         self.fields['videos'].required = False
         self.fields['precio'].required = False
         self.fields['capacidad'].required = False
-        self.fields['asistencia'].required = False
         self.fields['categorias'].required = False
         self.fields['etiquetas'].required = False
         self.fields['esRecurrente'].required = False
         self.fields['reservas'].required = False
-        self.fields['calificacion'].required = False
         self.fields['esDestacado'].required = False
 
         self.fields['nombre'].widget.attrs.update({
@@ -69,10 +101,6 @@ class EventoForm(forms.ModelForm):
             'class': 'form-control',
             'placeholder': 'Capacidad del evento'
         })
-        self.fields['asistencia'].widget.attrs.update({
-            'class': 'form-control',
-            'placeholder': 'Asistencia confirmada del evento'
-        })
         self.fields['categorias'].widget.attrs.update({
             'class': 'form-control',
             'placeholder': 'Categorías del evento'
@@ -89,10 +117,6 @@ class EventoForm(forms.ModelForm):
         self.fields['reservas'].widget.attrs.update({
             'class': 'form-control',
             'placeholder': 'Reservación del evento'
-        })
-        self.fields['calificacion'].widget.attrs.update({
-            'class': 'form-control',
-            'placeholder': 'Calificación del evento'
         })
         self.fields['esDestacado'].widget.attrs.update({
             'class': 'form-check-input',

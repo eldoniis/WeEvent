@@ -10,5 +10,9 @@ urlpatterns = [
     path('delete_event/<int:id>/', WeViews.DeleteEventView, name='delete_event'),
     path('profile/', WeViews.ShowProfile, name='profile'),
     path('delete_user/<int:id>/', WeViews.DeleteUser, name='delete_user'),
+    path('like/<int:id>',WeViews.darLike,name='dar_like'),
+    path('comentario/<int:id>',WeViews.comentario,name ='comentario'),
     path('support/',WeViews.Support, name='support'),
+    path('asistencia/<int:id>',WeViews.asistencia,name='asistencia'),
+
 ]

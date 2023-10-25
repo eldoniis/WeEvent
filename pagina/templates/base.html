@@ -67,8 +67,16 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
             {% if user.is_authenticated %}
+            <div>
+              <div class="dropdown">
+                <i class="dropbtn material-icons" onclick="myFunction('myDropdown2')" style="color: white; font-size:36px">notifications</i>
+                <div class="dropdown-content" id="myDropdown2">
+                  {% include 'messages.html' %}
+                </div>
+              </div>
+            </div>
             <div class="dropdown">
-              <i class="dropbtn material-icons" onclick="myFunction()" style="color: white; font-size:36px">person</i>
+              <i class="dropbtn material-icons" onclick="myFunction('myDropdown')" style="color: white; font-size:36px">person</i>
               <div class="dropdown-content" id="myDropdown">
                 <a class="nav-link" href="{% url 'profile' %}"><b>Profile</b></a>
                 <a class="nav-link" href="{% url 'support' %}"><b>Support</b></a>
@@ -106,8 +114,16 @@
   <script>
     /* When the user clicks on the button, 
     toggle between hiding and showing the dropdown content */
-    function myFunction() {
-      document.getElementById("myDropdown").classList.toggle("show");
+    
+    function myFunction(id) {
+      if (id == 'myDropdown'){
+        document.getElementById("myDropdown").classList.add("show");
+        document.getElementById("myDropdown2").classList.remove("show");
+      }
+      else{
+        document.getElementById("myDropdown2").classList.add("show");
+        document.getElementById("myDropdown").classList.remove("show");
+      }
     }
     
     // Close the dropdown if the user clicks outside of it
@@ -124,5 +140,6 @@
       }
     }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
 </body> 
 </html>
