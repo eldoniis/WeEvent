@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import UserCreateForm
+from .forms import UserCreateForm, CategoriaInteresForm
 from django.shortcuts import render
 from accounts.models import User
 from django.contrib.auth.forms import AuthenticationForm
@@ -19,7 +19,7 @@ def signupaccount(request):
                 user = User.objects.create_user(request.POST['username'], email=request.POST['email'], role=request.POST['role'], age=request.POST['age'], password=request.POST['password1'])
                 user.save()
                 login(request, user)
-                return redirect('home')
+                return redirect('category',request.POST['username'])
             except IntegrityError:
                 return render(request, 'signupaccount.html',
                 {'form':UserCreateForm,
@@ -45,3 +45,18 @@ def loginaccount(request):
     else:
         login(request,user)
     return redirect('home')
+
+@login_required
+def InterestCategories(request,name):
+    if request.method == 'POST':
+        form = CategoriaInteresForm(request.POST)
+        if form.is_valid():
+            categorias_interes = form.cleaned_data.get('CategoriaInteres')
+            user = User.objects.get(username = name)
+            user.CategoriaInteres.append(categorias_interes)  # Utiliza el método set() para establecer las categorías
+            user.save()
+            return redirect('home')
+    else:
+        form = CategoriaInteresForm()
+
+    return render(request, 'categoriaInteres.html', {'form': form})

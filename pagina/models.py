@@ -3,7 +3,17 @@ from django.utils.translation import gettext_lazy as _
 from accounts.models import User
 
 class Evento(models.Model):
-    categorias = []
+    categorias = (
+        ("Deportivo","Deportivo"),
+        ("Musical","Musical"),
+        ("Gastronomico","Gastronomico"),
+        ("Cultural","Cultural"),
+        ("Ayuda Social","Ayuda Social"),
+        ("Mascotas","Mascotas"),
+        ("Academico","Academico"),
+        ("Tecnologico","Tecnologico"),
+        ("CompraVenta","CompraVenta")
+        )
 
     nombre = models.CharField(max_length=255)
     ubicacion = models.CharField(max_length=255)
@@ -16,7 +26,7 @@ class Evento(models.Model):
     precio = models.FloatField()
     capacidad = models.IntegerField()
     asistencia = models.IntegerField()
-    categorias = models.CharField(max_length=255, choices=categorias)
+    categorias = models.CharField(max_length=255, choices=categorias, default="")
     etiquetas = models.CharField(max_length=255)
     esRecurrente = models.BooleanField()
     reservas = models.ManyToManyField(User, related_name='reservas')

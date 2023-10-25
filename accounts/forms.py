@@ -1,5 +1,26 @@
 from django.contrib.auth.forms import UserCreationForm
 from accounts.models import User
+from django import forms
+
+class CategoriaInteresForm(forms.ModelForm):
+   
+   class Meta:
+        model = User
+        fields = 'CategoriaInteres',
+   
+   OPTIONS = (
+       ("Deportivo","Deportivo"),
+        ("Musical","Musical"),
+        ("Gastronomico","Gastronomico"),
+        ("Cultural","Cultural"),
+        ("Ayuda Social","Ayuda Social"),
+        ("Mascotas","Mascotas"),
+        ("Academico","Academico"),
+        ("Tecnologico","Tecnologico"),
+        ("CompraVenta","CompraVenta")
+   )
+
+   CategoriaInteres = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=OPTIONS)
 
 class UserCreateForm(UserCreationForm):
     def __init__(self, *args, **kwargs):

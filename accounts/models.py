@@ -1,6 +1,8 @@
 from django.contrib.auth.models import UserManager, AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
+from django.contrib.postgres.fields import ArrayField
+
 class CustomUserManager(UserManager):
     def _create_user(self, username, email, password, **extra_fields):
         
@@ -24,13 +26,25 @@ class CustomUserManager(UserManager):
         return self._create_user(username, email, password, **extra_fields)
     
 class User(AbstractBaseUser, PermissionsMixin):
-    ROLE = (('Participant','Participant'),('Owner Event','Owner Event'),('Owner Event and Participant','Owner Event and Participant'),)
+    ROLE = (('Participant','Participant'),('Owner Event','Owner Event'),('Owner Event and Participant','Owner Event and Participant'))
+    CATEGORY = {
+        "Deportivo",
+        "Musical",
+        "Gastronomico",
+        "Cultural",
+        "Ayuda Social",
+        "Mascotas",
+        "Academico",
+        "Tecnologico",
+        "CompraVenta",
+    }
 
     username = models.CharField(max_length=255, blank=True, default='', unique=True)
     email = models.EmailField(blank=True, default='')
     role = models.CharField(max_length=255, choices=ROLE, blank=True, default='')
     location = models.CharField(max_length=255, blank=True, default='')
     age = models.CharField(max_length=255, blank=True, default='')
+    CategoriaInteres = ArrayField(models.CharField(max_length=255), blank=True, default=list)
 
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)

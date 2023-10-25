@@ -15,6 +15,11 @@ def HomePage(request):
     viewData["title"] = "Title of the view"
     viewData["subtitle"] =  "Subtitle of the view"
     viewData["events"] = Evento.objects.all()
+    viewData["contador"] = 0
+    for event in viewData["events"]:
+        if event.ubicacion == User.location:
+            viewData["contador"] = viewData["contador"] + 1
+
     return render(request, template_name, viewData)
 
 @login_required
